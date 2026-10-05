@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سفر شگفت‌انگیز رسانه‌ها | از غار تا هوش مصنوعی</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg1:#0d0b23;
+  --bg2:#1b1442;
+  --bg3:#2a1b52;
+  --text:#f2f0ff;
+  --muted:#b9b3e0;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Vazirmatn',system-ui,sans-serif;
+  background:linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 35%,var(--bg3) 70%,var(--bg1) 100%);
+  color:var(--text);
+  overflow-x:hidden;
+  line-height:1.9;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%,rgba(255,255,255,.6),transparent),
+    radial-gradient(2px 2px at 70% 15%,rgba(255,255,255,.4),transparent),
+    radial-gradient(1.5px 1.5px at 40% 70%,rgba(255,255,255,.5),transparent),
+    radial-gradient(2px 2px at 85% 60%,rgba(255,255,255,.35),transparent),
+    radial-gradient(1.5px 1.5px at 10% 85%,rgba(255,255,255,.45),transparent);
+  background-size:100% 100%;
+  animation:twinkle 6s ease-in-out infinite alternate;
+}
+@keyframes twinkle{from{opacity:.4}to{opacity:.9}}
+
+/* ===== نوار پیشرفت ===== */
+#topbar{
+  position:fixed;top:0;right:0;left:0;height:6px;z-index:100;
+  background:rgba(255,255,255,.08);
+}
+#topbar span{
+  display:block;height:100%;width:0%;
+  background:linear-gradient(90deg,#ff8a5c,#ffd93d,#4ecdc4,#6c8cff,#e879f9);
+  border-radius:0 0 6px 6px;
+  box-shadow:0 0 14px rgba(255,217,61,.6);
+  transition:width .1s linear;
+}
+
+/* ===== قهرمان ===== */
+.hero{
+  position:relative;z-index:2;
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:80px 24px 60px;
+  overflow:hidden;
+}
+/* تصویر اول به عنوان پس‌زمینهٔ محو قهرمان */
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:url('media-brain.jpg');
+  background-size:cover;
+  background-position:center;
+  opacity:.18;
+  filter:blur(3px) saturate(1.2);
+  z-index:-1;
+}
+.hero::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at center, rgba(13,11,35,.4) 0%, rgba(13,11,35,.95) 70%);
+  z-index:-1;
+}
+.hero .badge{
+  display:inline-block;padding:8px 20px;border-radius:100px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+  font-size:.95rem;color:var(--muted);margin-bottom:26px;
+  backdrop-filter:blur(8px);
+}
+.hero h1{
+  font-size:clamp(2rem,6vw,4.2rem);
+  font-weight:900;line-height:1.35;letter-spacing:-1px;
+  background:linear-gradient(120deg,#ffd93d,#ff8a5c,#4ecdc4,#a78bfa,#e879f9);
+  background-size:300% 300%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:flow 8s ease infinite;
+  margin-bottom:18px;
+}
+@keyframes flow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero p{
+  font-size:clamp(1rem,2.2vw,1.25rem);color:var(--muted);
+  max-width:640px;margin-bottom:38px;
+}
+.hero .emojis{
+  font-size:clamp(1.8rem,5vw,3rem);letter-spacing:14px;
+  margin-bottom:34px;direction:ltr;
+}
+.hero .emojis span{display:inline-block;animation:float 3s ease-in-out infinite;}
+.hero .emojis span:nth-child(1){animation-delay:0s}
+.hero .emojis span:nth-child(2){animation-delay:.3s}
+.hero .emojis span:nth-child(3){animation-delay:.6s}
+.hero .emojis span:nth-child(4){animation-delay:.9s}
+.hero .emojis span:nth-child(5){animation-delay:1.2s}
+.hero .emojis span:nth-child(6){animation-delay:1.5s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+
+.btn{
+  display:inline-block;padding:16px 44px;border-radius:100px;
+  font-family:inherit;font-size:1.1rem;font-weight:700;cursor:pointer;
+  border:none;color:#160f2e;
+  background:linear-gradient(120deg,#ffd93d,#ff9a3c);
+  box-shadow:0 10px 34px -8px rgba(255,180,60,.75);
+  transition:transform .25s, box-shadow .25s;
+  text-decoration:none;
+}
+.btn:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 16px 44px -8px rgba(255,180,60,.95);}
+.btn:active{transform:translateY(-1px);}
+
+.scrollhint{
+  position:absolute;bottom:30px;font-size:1.6rem;color:var(--muted);
+  animation:bounce 2s infinite;
+}
+@keyframes bounce{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(12px);opacity:1}}
+
+/* ===== نوار وسایل قدیمی ===== */
+.retro-strip{
+  position:relative;z-index:2;
+  height:clamp(90px, 15vw, 160px);
+  background-image:url('retro-devices.jpg');
+  background-size:cover;
+  background-position:center;
+  border-top:1px solid rgba(255,255,255,.1);
+  border-bottom:1px solid rgba(255,255,255,.1);
+  box-shadow:0 20px 60px -20px rgba(0,0,0,.8) inset;
+  overflow:hidden;
+}
+.retro-strip::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg, rgba(13,11,35,.85), rgba(13,11,35,.2) 50%, rgba(13,11,35,.85));
+}
+.retro-strip .label{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  color:#fff;font-weight:700;font-size:clamp(.9rem,2.5vw,1.2rem);
+  text-shadow:0 2px 20px rgba(0,0,0,.9);
+  letter-spacing:2px;
+}
+
+/* ===== تایم‌لاین ===== */
+.timeline{
+  position:relative;z-index:2;
+  max-width:1120px;margin:0 auto;padding:60px 24px 40px;
+}
+.timeline::before{
+  content:'';position:absolute;top:0;bottom:0;left:50%;
+  transform:translateX(-50%);width:4px;border-radius:4px;
+  background:rgba(255,255,255,.1);
+}
+.timeline::after{
+  content:'';position:absolute;top:0;left:50%;
+  transform:translateX(-50%);width:4px;border-radius:4px;
+  height:var(--fill,0%);
+  background:linear-gradient(180deg,#ff8a5c,#ffd93d,#4ecdc4,#6c8cff,#e879f9);
+  box-shadow:0 0 18px rgba(120,180,255,.6);
+  transition:height .15s linear;
+}
+
+.chapter{
+  position:relative;z-index:5;width:100%;
+  display:flex;justify-content:center;margin:60px 0 50px;
+}
+.chapter span{
+  display:inline-block;padding:12px 34px;border-radius:100px;
+  background:linear-gradient(120deg,rgba(255,255,255,.14),rgba(255,255,255,.06));
+  border:1px solid rgba(255,255,255,.22);
+  backdrop-filter:blur(14px);
+  font-weight:700;font-size:clamp(.95rem,2.4vw,1.15rem);
+  box-shadow:0 10px 40px -12px rgba(0,0,0,.8);
+  white-space:nowrap;
+}
+
+.item{
+  position:relative;width:50%;margin-bottom:58px;
+  opacity:0;transform:translateY(46px);
+  transition:opacity .75s cubic-bezier(.2,.7,.3,1), transform .75s cubic-bezier(.2,.7,.3,1);
+}
+.item.show{opacity:1;transform:translateY(0);}
+
+.item.side-left{left:0;padding-left:56px;}
+.item.side-right{left:50%;padding-right:56px;}
+
+.dot{
+  position:absolute;top:22px;width:58px;height:58px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.7rem;
+  background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.28),rgba(255,255,255,.06));
+  border:2px solid var(--c);
+  box-shadow:0 0 0 6px rgba(13,11,35,.95), 0 0 26px -4px var(--c);
+  backdrop-filter:blur(6px);
+  z-index:3;
+}
+.item.side-left .dot{right:-29px;}
+.item.side-right .dot{left:-29px;}
+
+.card{
+  position:relative;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.1);
+  border-right:4px solid var(--c);
+  border-radius:22px;
+  padding:24px 26px;
+  backdrop-filter:blur(12px);
+  box-shadow:0 14px 44px -18px var(--c), 0 10px 30px -12px rgba(0,0,0,.6);
+  transition:transform .35s cubic-bezier(.2,.7,.3,1), box-shadow .35s, background .35s;
+}
+.card:hover{
+  transform:translateY(-8px);
+  background:rgba(255,255,255,.085);
+  box-shadow:0 26px 60px -20px var(--c), 0 16px 40px -14px rgba(0,0,0,.7);
+}
+
+/* ===== قاب عکس درس ===== */
+.card .lesson-img{
+  width:100%;
+  height:180px;
+  border-radius:16px;
+  background-size:cover;
+  background-position:center;
+  background-color:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.12);
+  margin-bottom:16px;
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,.25);
+  font-size:.85rem;
+  position:relative;
+  overflow:hidden;
+}
+.card .lesson-img::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 50%,rgba(13,11,35,.6));
+}
+
+.year{
+  display:inline-block;font-size:.82rem;font-weight:700;
+  padding:5px 14px;border-radius:100px;margin-bottom:12px;
+  color:var(--c);
+  background:color-mix(in srgb, var(--c) 16%, transparent);
+  border:1px solid color-mix(in srgb, var(--c) 45%, transparent);
+}
+.card h3{
+  font-size:clamp(1.15rem,2.6vw,1.5rem);font-weight:700;margin-bottom:10px;
+  color:#fff;
+}
+.card p{color:var(--muted);font-size:clamp(.92rem,2.1vw,1.02rem);}
+.fact{
+  margin-top:16px;padding:13px 16px;border-radius:14px;
+  background:rgba(255,255,255,.05);
+  border:1px dashed rgba(255,255,255,.18);
+  font-size:.88rem;color:#ded9ff;
+}
+.fact b{color:var(--c);}
+
+/* ===== دکمهٔ پخش صدا ===== */
+.audio-btn{
+  margin-top:16px;
+  display:inline-flex;align-items:center;gap:10px;
+  padding:10px 20px;border-radius:100px;
+  font-family:inherit;font-size:.9rem;font-weight:600;cursor:pointer;
+  color:var(--c);
+  background:color-mix(in srgb, var(--c) 12%, transparent);
+  border:1.5px solid color-mix(in srgb, var(--c) 50%, transparent);
+  transition:.25s;
+}
+.audio-btn:hover{
+  background:color-mix(in srgb, var(--c) 22%, transparent);
+  transform:translateY(-2px);
+}
+.audio-btn.playing{
+  background:color-mix(in srgb, var(--c) 30%, transparent);
+  animation:pulse 1.4s infinite;
+}
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 0 color-mix(in srgb, var(--c) 50%, transparent);}
+  50%{box-shadow:0 0 0 10px transparent;}
+}
+
+/* ===== کوییز ===== */
+.quiz-wrap{
+  position:relative;z-index:2;
+  max-width:820px;margin:90px auto 60px;padding:0 24px;
+}
+.quiz-card{
+  background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:28px;padding:clamp(24px,5vw,44px);
+  backdrop-filter:blur(16px);
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.9);
+}
+.quiz-card h2{
+  text-align:center;font-size:clamp(1.4rem,4vw,2.1rem);font-weight:900;
+  margin-bottom:10px;
+  background:linear-gradient(120deg,#ffd93d,#4ecdc4,#a78bfa);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.quiz-card .sub{text-align:center;color:var(--muted);margin-bottom:32px;font-size:.95rem;}
+.q{margin-bottom:26px;}
+.q .qt{font-weight:700;margin-bottom:14px;font-size:1.05rem;}
+.q .qt i{color:#ffd93d;font-style:normal;margin-left:6px;}
+.opts{display:flex;flex-direction:column;gap:10px;}
+.opt{
+  font-family:inherit;text-align:right;cursor:pointer;
+  padding:13px 20px;border-radius:14px;font-size:.98rem;
+  color:var(--text);
+  background:rgba(255,255,255,.055);
+  border:1.5px solid rgba(255,255,255,.14);
+  transition:.22s;
+}
+.opt:hover:not(:disabled){background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35);transform:translateX(-5px);}
+.opt:disabled{cursor:default;}
+.opt.correct{background:rgba(52,211,153,.2);border-color:#34d399;color:#c6ffe8;font-weight:700;}
+.opt.wrong{background:rgba(251,113,133,.18);border-color:#fb7185;color:#ffd3da;}
+.feedback{
+  margin-top:10px;font-size:.88rem;padding:10px 14px;border-radius:12px;
+  display:none;
+}
+.feedback.ok{display:block;background:rgba(52,211,153,.12);color:#9df3d3;border:1px solid rgba(52,211,153,.35);}
+.feedback.no{display:block;background:rgba(251,113,133,.1);color:#ffc0ca;border:1px solid rgba(251,113,133,.3);}
+
+.score{
+  text-align:center;margin-top:26px;padding:20px;border-radius:18px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);
+  font-weight:700;font-size:1.05rem;display:none;
+}
+.score.show{display:block;animation:pop .5s cubic-bezier(.2,1.4,.4,1);}
+@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* ===== پایان ===== */
+.outro{
+  position:relative;z-index:2;text-align:center;
+  padding:70px 24px 90px;max-width:760px;margin:0 auto;
+}
+.outro h2{
+  font-size:clamp(1.4rem,4vw,2rem);margin-bottom:18px;
+  background:linear-gradient(120deg,#ffd93d,#e879f9);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.outro p{color:var(--muted);font-size:1.05rem;margin-bottom:30px;}
+
+#toTop{
+  position:fixed;bottom:24px;left:24px;z-index:90;
+  width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;
+  font-size:1.3rem;color:#160f2e;
+  background:linear-gradient(120deg,#ffd93d,#ff9a3c);
+  box-shadow:0 10px 30px -8px rgba(255,180,60,.8);
+  opacity:0;pointer-events:none;transition:.3s;
+}
+#toTop.show{opacity:1;pointer-events:auto;}
+#toTop:hover{transform:translateY(-4px);}
+
+@media (max-width:880px){
+  .timeline::before,.timeline::after{left:auto;right:26px;transform:none;}
+  .item{width:100% !important;left:0 !important;padding:0 74px 0 0 !important;}
+  .item .dot{right:-2px !important;left:auto !important;width:52px;height:52px;font-size:1.5rem;}
+  .chapter span{white-space:normal;text-align:center;}
+  .dot{top:16px;}
+}
+</style>
+</head>
+<body>
+
+<div id="topbar"><span id="bar"></span></div>
+
+<!-- ============ قهرمان ============ -->
+<header class="hero">
+  <div class="badge">🎬 یک سفر در زمان — برای دانش‌آموزان کنجکاو</div>
+  <div class="emojis">
+    <span>🗿</span><span>📜</span><span>🖨️</span><span>📻</span><span>📺</span><span>📱</span>
+  </div>
+  <h1>سفر شگفت‌انگیز رسانه‌ها</h1>
+  <p>
+    از نقاشی روی دیوارهٔ غار تا هوش مصنوعی… بیایید ببینیم انسان‌ها در طول هزاران سال
+    چطور یاد گرفتند پیام‌هایشان را به دیگران برسانند.
+  </p>
+  <a href="#start" class="btn">🚀 سفر را شروع کن</a>
+  <div class="scrollhint">⌄</div>
+</header>
+
+<!-- ============ نوار وسایل قدیمی ============ -->
+<div class="retro-strip">
+  <div class="label">📻 از میکروفون تا تلویزیون — سفری در دل وسایل رسانه‌ای 📺</div>
+</div>
+
+<!-- ============ تایم‌لاین ============ -->
+<main class="timeline" id="start">
+
+  <div class="chapter"><span>🪨 فصل یکم — پیام‌های نخستین</span></div>
+
+  <!-- درس ۱ -->
+  <div class="item side-right" style="--c:#ff8a5c">
+    <div class="dot">🗿</div>
+    <div class="card">
+      <!-- عکس درس: فایل lesson-1.jpg را کنار HTML بگذارید -->
+      <div class="lesson-img" style="background-image:url('lesson-1.jpg')">عکس درس ۱</div>
+      <div class="year">حدود ۴۰٬۰۰۰ سال پیش</div>
+      <h3>پیام روی دیوار غار</h3>
+      <p>انسان‌های اولیه با ذغال و رنگ‌های طبیعی، حیوانات و صحنه‌های شکار را روی دیوارهٔ غار می‌کشیدند.
+      این نقاشی‌ها اولین «رسانه» بودند؛ پیام‌هایی که هزاران سال دوام آوردند!</p>
+      <div class="fact"><b>💡 آیا می‌دانستید؟</b> غار «لاسکو» در فرانسه بیش از ۶۰۰ نقاشی دارد و قدمت بعضی‌هایشان به ۱۷٬۰۰۰ سال پیش می‌رسد.</div>
+      <!-- پخش صدا: فایل audio-1.mp3 را کنار HTML بگذارید -->
+      <button class="audio-btn" data-audio="audio-1.mp3">🔊 شنیدن توضیح صوتی</button>
+    </div>
+  </div>
+
+  <!-- درس ۲ -->
+  <div class="item side-left" style="--c:#ffb347">
+    <div class="dot">💨</div>
+    <div class="card">
+      <div class="lesson-img" style="background-image:url('lesson-2.jpg')">عکس درس ۲</div>
+      <div class="year">هزاران سال پیش</div>
+      <h3>دود، آتش و طبل</h3>
+      <p>قبیله‌ها با روشن‌کردن آتش، دود، صدای طبل و بوق پیام می‌فرستادند.
+      یک نفر بالای تپه دود بلند می‌کرد تا بقیه بفهمند «خبری هست!»</p>
+      <div class="fact"><b>💡 آیا می‌دانستید؟</b> در ایران باستان هم روی بلندی کوه‌ها برج‌های خبری ساخته بودند که با آتش خبر را از شهری به شهر دیگر می‌رساندند.</div>
+      <button class="audio-btn" data-audio="audio-2.mp3">🔊 شنیدن توضیح صوتی</button>
+    </div>
+  </div>
+
+  <div class="chapter"><span>✍️ فصل دوم — عصر نوشتار</span></div>
+
+  <div class="item side-right" style="--c:#ffd93d">
+    <div class="dot">📝</div>
+    <div class="card">
+      <div class="lesson-img" style="background-image:url('lesson-3.jpg')">عکس درس ۳</div>
+      <div class="year">حدود ۵٬۲۰۰ سال پیش</div>
+      <h3>تولد خط</h3>
+      <p>مردم سومر برای شمردن گندم و گوسفند، روی گلِ رس علامت می‌کشیدند.
+      کم‌کم این علامت‌ها به «خط میخی» تبدیل شد — اولین رسانهٔ ماندگار تاریخ!</p>
+      <div class="fact"><b>💡 آیا می‌دانستید؟</b> خط میخی حدود ۳٬۰۰۰ سال استفاده می‌شد؛ یعنی بیشتر از عمر خط لاتین!</div>
+      <button class="audio-btn" data-audio="audio-3.mp3">🔊 شنیدن توضیح صوتی</button>
+    </div>
+  </div>
+
+  <div class="item side-left" style="--c:#a8e063">
+    <div class="dot">🐎</div>
+    <div class="card">
+      <div class="lesson-img" style="background-image:url('lesson-4.jpg')">عکس درس ۴</div>
+      <div class="year">حدود ۲٬۵۰۰ سال پیش</div>
+      <h3>پیک‌ها و چاپارخانه</h3>
+      <p>کوروش و داریوش شبکهٔ «چاپارخانه» را ساختند: اسب‌ها و پیک‌ها همیشه آماده بودند
+      تا نامه‌ها را با سرعت زیاد از یک گوشهٔ امپراتوری به گوشهٔ دیگر ببرند.</p>
+      <div class="fact"><b>💡 آیا می‌دانستید؟</b> هرودوت، تاریخ‌نگار یونانی، نوشته است که هیچ‌چیز در دنیا به سرعت پیک‌های ایرانی نمی‌رسد!</div>
+      <button class="audio-btn" data-audio="audio-4.mp3">🔊 شنیدن توضیح صوتی</button>
+    </div>
+  </div>
+
+  <div class="item side-right" style="--c:#4ecdc4">
+    <div class="dot">📜</div>
+    <div class="card">
+      <div class="lesson-img" style="background-image:url('lesson-5.jpg')">عکس درس ۵</div>
+      <div class="year">پیش از اختراع چاپ</div>
+      <h3>کتاب‌های دست‌نویس</h3>
+      <p>نویسندگان با دست روی پوست حیوانات، پاپیروس و بعدها کاغذ می‌نوشتند.
+      نوشتن یک کتاب می‌توانست ماه‌ها طول بکشد و آن‌قدر گران بود که فقط پادشاهان و دانشمندان کتاب داشتند.</p>
+      <div class="fact"><b>💡 آیا می‌دانستید؟</b> بعضی کتاب‌های دست‌نویس آن‌قدر ارزش داشتند که با یک خانه یا یک مزرعه مبادله می‌شدند!</div>
+      <button class="audio-btn" data-audio="audio-5.mp3">🔊 شنیدن توضیح صوتی</button>
+    </div>
+  </div>
+
+  <div class="chapter"><span>🖨️ فصل سوم — انقلاب چاپ</span></div>
+
+  <div class="item side-left" style="--c:#45b7d1">
+    <div class="dot">🖨️</div>
+    <div class="card">
+      <div class="lesson-img" style="background-image:url('lesson-6.jpg')">عکس درس ۶</div>
+      <div class="year">حدود ۱۴۴۰ میلادی</div>
+      <h3>ماشین چاپ گوتنبرگ</h3>
+      <p>یوهانس گوتنبرگ ماشین چاپ با «حروف متحرک» را ساخت.
+      حالا می‌شد یک کتاب را در چند روز به هزاران نسخه رساند. دانش دیگر فقط مال ثروتمندان نبود!</p>
+      <div class="fact"><b>💡 آیا می‌دانستید؟</b> اولین کتابی که گوتنبرگ چاپ کرد، انجیل بود و هر نسخهٔ آن امروز میلیون‌ها دلار ارزش دارد.</div>
+      <button class="audio-btn" data-audio="audio-6.mp3">🔊 شنیدن توضیح صوتی</button>
+    </div>
+  </div>
+
+  <div class="item side-right" style="--c:#6c8cff">
+    <div class="dot">📰</div>
+    <div class="card">
+      <div class="lesson-img" style="background-image:url('lesson-7.jpg')">عکس درس ۷</div>
+      <div class="year">اوایل قرن هفدهم میلادی</div>
+      <h3>تولد روزنامه</h3>
+      <p>اولین روزنامه‌ها در آلمان و اروپا منتشر شدند.
+      مردم هر صبح با یک برگ کاغذ از خبرهای شهر و دنیا باخبر می‌شدند — بدون اینکه از خانه بیرون بروند.</p>
+      <div class="fact"><b>💡 آیا می‌دانستید؟</b> اولین روزنامهٔ ایران «کاغذ اخبار» بود که در سال ۱۲۱۵ شمسی منتشر شد.</div>
+      <button class="audio-btn" data-audio="audio-7.mp3">🔊 شنیدن توضیح صوتی</button>
+    </div>
+  </div>
+
+  <div class="chapter"><span>⚡ فصل چهارم — عصر الکترونیک</span></div>
+
+  <div class="item side-left" style="--c:#a78bfa">
+    <div class="dot">📸</div>
+    <div class="card">
+      <div class="lesson-img" style="background-image:url('lesson-8.jpg')">عکس درس ۸</div>
+      <div class="year">۱۸۲۶ میلادی</div>
+      <h3>اولین عکس تاریخ</h3>
+      <p>نیکِفور نیپس اولین عکس دنیا را گرفت؛ عکسی تار که برای ثبت‌شدن، ۸ ساعت نوردهی لازم داشت!
+      از آن روز، رسانه‌ها دیگر فقط «کلمه» نبودند؛ «تصویر» هم اضافه شد.</p>
+      <div class="fact"><b>💡 آیا می‌دانستید؟</b> نام آن عکس معروف «منظره از پنجره در لوگرا» است.</div>
+      <button class="audio-btn" data-audio="audio-8.mp3">🔊 شنیدن توضیح صوتی</button>
+    </div>
+  </div>
+
+  <div class="item side-right" style="--c:#f472b6">
+    <div class="dot">⚡</div>
+    <div class="card">
+      <div class="lesson-img" style="background-image:url('lesson-9.jpg')">عکس درس ۹</div>
+      <div class="year">۱۸۳۷ میلادی</div>
+      <h3>تلگراف و کد مورس</h3>
+      <p>ساموئل مورس با ترکیب «نقطه و خط» پیام‌ها را از طریق سیم برق فرستاد.
+      برای اولین بار، خبر در چند دقیقه به شهری دور می‌رسید — نه چند هفته!</p>
+      <div class="fact"><b>💡 آیا می‌دانستید؟</b> کد مورس آن‌قدر خوب بود که هنوز هم بعضی خلبانان و دریانوردان از آن استفاده می‌کنند.</div>
+      <button class="audio-btn" data-audio="audio-9.mp3">🔊 شنیدن توضیح صوتی</button>
+    </div>
+  </div>
+
+  <div class="item side-left" style="--c:#fb7185">
+    <div class="dot">☎️</div>
+    <div class="card">
+      <div class="lesson-img" style="background-image:url('lesson-10.jpg')">عکس درس ۱۰</div>
+      <div class="year">۱۸۷۶ میلادی</div>
+      <h3>تلفن: صدای زنده</h3>
+      <p>الکساندر گراهام بل دستگاهی ساخت که صدای انسان را به‌صورت زنده منتقل می‌کرد.
+      دیگر لازم نبود پیام را به کد تبدیل کنیم؛ می‌شد مستقیم حرف زد!</p>
+      <div class="fact"><b>💡 آیا می‌دانستید؟</b> اولین جملهٔ تلفنی تاریخ این بود: «آقای واتسون، بیا اینجا، بهت نیاز دارم!»</div>
+      <button class="audio-btn" data-audio="audio-10.mp3">🔊 شنیدن توضیح صوتی</button>
+    </div>
+  </div>
+
+  <div class="item side-right" style="--c:#fbbf24">
+    <div class="dot">📻</div>
+    <div class="card">
+      <div class="lesson-img" style="background-image:url('lesson-11.jpg')">عکس درس ۱۱</div>
+      <div class="year">اوایل قرن بیستم</div>
+      <h3>رادیو وارد خانه شد</h3>
+      <p>رادیو صدا را بدون سیم به خانه‌ها آورد. خانواده‌ها شب‌ها دور دستگاه جمع می‌شدند
+      و با هم خبر، موسیقی و نمایش گوش می‌دادند.</p>
+      <div class="fact"><b>💡 آیا می‌دانستید؟</b> اولین فرستندهٔ رادیو در ایران در سال ۱۳۱۹ شمسی راه‌اندازی شد.</div>
+      <button class="audio-btn" data-audio="audio-11.mp3">🔊 شنیدن توضیح صوتی</button>
+    </div>
+  </div>
+
+  <div class="item side-left" style="--c:#34d399">
+    <div class="dot">📺</div>
+    <div class="card">
+      <div class="lesson-img" style="background-image:url('lesson-12.jpg')">عکس درس ۱۲</div>
+      <div class="year">دههٔ ۱۹۲۰ تا ۱۹۵۰</div>
+      <h3>تلویزیون: تصویر + صدا</h3>
+      <p>تلویزیون تصویر و صدا را با هم آورد. مردم توانستند مسابقهٔ فوتبال، اخبار و کارتون‌ها را
+      ببینند. دنیا کوچک‌تر شد!</p>
+      <div class="fact"><b>💡 آیا می‌دانستید؟</b> اولین پخش تلویزیونی در ایران در سال ۱۳۳۷ انجام شد.</div>
+      <button class="audio-btn" data-audio="audio-12.mp3">🔊 شنیدن توضیح صوتی</button>
+    </div>
+  </div>
+
+  <div class="chapter"><span>🌐 فصل پنجم — عصر دیجیتال</span></div>
+
+  <div class="item side-right" style="--c:#22d3ee">
+    <div class="dot">💻</div>
+    <div class="card">
+      <div class="lesson-img" style="background-image:url('lesson-13.jpg')">عکس درس ۱۳</div>
+      <div class="year">۱۹۶۹ تا ۱۹۹۰ میلادی</div>
+      <h3>اینترنت و وب جهانی</h3>
+      <p>«آرپانت» اولین شبکهٔ کامپیوتری بود که کامپیوترها را به هم وصل کرد.
+      بعدها تیم برنرز-لی «وب» را ساخت و دنیا یک‌جا به هم متصل شد.</p>
+      <div class="fact"><b>💡 آیا می‌دانستید؟</b> اولین پیام اینترنتی قرار بود «LOGIN» باشد، اما وسط راه قطع شد و فقط «LO» رسید!</div>
+      <button class="audio-btn" data-audio="audio-13.mp3">🔊 شنیدن توضیح صوتی</button>
+    </div>
+  </div>
+
+  <div class="item side-left" style="--c:#818cf8">
+    <div class="dot">📱</div>
+    <div class="card">
+      <div class="lesson-img" style="background-image:url('lesson-14.jpg')">عکس درس ۱۴</div>
+      <div class="year">دههٔ ۲۰۰۰ به بعد</div>
+      <h3>موبایل و شبکه‌های اجتماعی</h3>
+      <p>اینترنت وارد جیب ما شد. حالا هر کسی می‌تواند عکس، ویدیو و پیام برای میلیون‌ها نفر بفرستد.
+      رسانه دیگر یک‌طرفه نیست — همه می‌توانند تولیدکنندهٔ خبر باشند.</p>
+      <div class="fact"><b>💡 آیا می‌دانستید؟</b> اولین پیامک تاریخ در سال ۱۹۹۲ فرستاده شد و متنش این بود: «Merry Christmas»</div>
+      <button class="audio-btn" data-audio="audio-14.mp3">🔊 شنیدن توضیح صوتی</button>
+    </div>
+  </div>
+
+  <div class="item side-right" style="--c:#e879f9">
+    <div class="dot">🤖</div>
+    <div class="card">
+      <div class="lesson-img" style="background-image:url('lesson-15.jpg')">عکس درس ۱۵</div>
+      <div class="year">امروز و آینده</div>
+      <h3>هوش مصنوعی و واقعیت مجازی</h3>
+      <p>هوش مصنوعی حالا متن، عکس، صدا و ویدیو می‌سازد. عینک‌های واقعیت مجازی ما را
+      به دنیاهای دیگر می‌برند. رسانهٔ بعدی را شاید شما بسازید!</p>
+      <div class="fact"><b>💡 نکتهٔ مهم:</b> هر رسانه‌ای که بسازید، مثل یک ابرقدرت است — از آن با فکر، راستی و مهربانی استفاده کنید.</div>
+      <button class="audio-btn" data-audio="audio-15.mp3">🔊 شنیدن توضیح صوتی</button>
+    </div>
+  </div>
+
+</main>
+
+<!-- ============ کوییز ============ -->
+<section class="quiz-wrap">
+  <div class="quiz-card">
+    <h2>🧠 حالا نوبت توست!</h2>
+    <p class="sub">چهار سؤال کوتاه — ببین چقدر یاد گرفته‌ای</p>
+    <div id="quiz"></div>
+    <div class="score" id="score"></div>
+  </div>
+</section>
+
+<section class="outro">
+  <h2>🎉 آفرین که تا آخر سفر آمدی!</h2>
+  <p>
+    رسانه‌ها همیشه برای «رساندن پیام» ساخته شده‌اند — از یک نقاشی روی سنگ تا یک پیام در گوشی.
+    تو هم بخشی از این داستانی؛ پس هوشمندانه انتخاب کن، درست بگو و خوب گوش بده.
+  </p>
+  <a href="#start" class="btn">🔁 یک بار دیگر ببین</a>
+</section>
+
+<button id="toTop" aria-label="بازگشت به بالا">↑</button>
+
+<script>
+/* ================= نوار پیشرفت ================= */
+const bar = document.getElementById('bar');
+const tl  = document.querySelector('.timeline');
+const toTop = document.getElementById('toTop');
+
+function onScroll(){
+  const h = document.documentElement.scrollHeight - innerHeight;
+  bar.style.width = (scrollY / h * 100) + '%';
+
+  const r = tl.getBoundingClientRect();
+  const total = r.height;
+  const scrolled = Math.min(Math.max(innerHeight * 0.65 - r.top, 0), total);
+  tl.style.setProperty('--fill', (scrolled / total * 100) + '%');
+
+  toTop.classList.toggle('show', scrollY > 700);
+}
+addEventListener('scroll', onScroll, {passive:true});
+addEventListener('resize', onScroll);
+onScroll();
+
+/* ================= نمایش تدریجی ================= */
+const items = document.querySelectorAll('.item, .chapter');
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
+  });
+},{threshold:.2, rootMargin:'0px 0px -60px 0px'});
+
+items.forEach((el,i)=>{
+  el.style.transitionDelay = (i % 2 === 0 ? 0 : 60) + 'ms';
+  io.observe(el);
+});
+document.querySelectorAll('.chapter').forEach(c=>{
+  c.style.opacity = 0;
+  c.style.transform = 'translateY(30px)';
+  c.style.transition = 'opacity .7s, transform .7s';
+});
+
+/* ================= پخش صدا ================= */
+let currentAudio = null;
+let currentBtn = null;
+
+document.querySelectorAll('.audio-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const src = btn.dataset.audio;
+
+    // اگر همان دکمه در حال پخش است، متوقف کن
+    if(currentAudio && currentBtn === btn && !currentAudio.paused){
+      currentAudio.pause();
+      btn.classList.remove('playing');
+      btn.innerHTML = '🔊 شنیدن توضیح صوتی';
+      return;
+    }
+
+    // متوقف کردن پخش قبلی
+    if(currentAudio){
+      currentAudio.pause();
+      if(currentBtn){
+        currentBtn.classList.remove('playing');
+        currentBtn.innerHTML = '🔊 شنیدن توضیح صوتی';
+      }
+    }
+
+    const audio = new Audio(src);
+    currentAudio = audio;
+    currentBtn = btn;
+
+    btn.classList.add('playing');
+    btn.innerHTML = '⏸ در حال پخش… (برای توقف کلیک کنید)';
+
+    audio.play().catch(err=>{
+      btn.classList.remove('playing');
+      btn.innerHTML = '🔊 شنیدن توضیح صوتی';
+      alert('فایل صوتی «' + src + '» پیدا نشد. لطفاً آن را کنار فایل HTML بگذارید.');
+    });
+
+    audio.addEventListener('ended', ()=>{
+      btn.classList.remove('playing');
+      btn.innerHTML = '🔊 شنیدن توضیح صوتی';
+      currentAudio = null;
+      currentBtn = null;
+    });
+  });
+});
+
+/* ================= کوییز ================= */
+const questions = [
+  { q:'اولین رسانه‌ای که انسان‌ها از آن استفاده کردند چه بود؟',
+    opts:['نقاشی روی دیوارهٔ غار','روزنامه','رادیو'], a:0,
+    why:'درست است! انسان‌های اولیه با نقاشی روی غار، پیام‌هایشان را به دیگران می‌رساندند.' },
+  { q:'چه کسی ماشین چاپ با حروف متحرک را اختراع کرد؟',
+    opts:['ساموئل مورس','یوهانس گوتنبرگ','الکساندر گراهام بل'], a:1,
+    why:'آفرین! گوتنبرگ در حدود سال ۱۴۴۰ میلادی این انقلاب بزرگ را آغاز کرد.' },
+  { q:'کد «نقطه و خط» برای کدام وسیله بود؟',
+    opts:['تلفن','تلگراف','تلویزیون'], a:1,
+    why:'درست! کد مورس روی دستگاه تلگراف استفاده می‌شد.' },
+  { q:'اولین شبکهٔ کامپیوتری دنیا چه نام داشت؟',
+    opts:['گوگل','آرپانت (ARPANET)','یاهو'], a:1,
+    why:'عالی! آرپانت در سال ۱۹۶۹ ساخته شد و جد اینترنت امروزی است.' }
+];
+
+const quizEl = document.getElementById('quiz');
+const scoreEl = document.getElementById('score');
+let answered = 0, correct = 0;
+
+questions.forEach((item, qi) => {
+  const box = document.createElement('div');
+  box.className = 'q';
+  box.innerHTML = `<div class="qt"><i>سؤال ${toFa(qi+1)}.</i> ${item.q}</div>`;
+
+  const opts = document.createElement('div');
+  opts.className = 'opts';
+
+  item.opts.forEach((text, oi) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt';
+    btn.textContent = text;
+    btn.onclick = () => {
+      [...opts.children].forEach(b => b.disabled = true);
+      if(oi === item.a){
+        btn.classList.add('correct');
+        correct++;
+        fb.className = 'feedback ok';
+        fb.textContent = '✅ ' + item.why;
+      }else{
+        btn.classList.add('wrong');
+        opts.children[item.a].classList.add('correct');
+        fb.className = 'feedback no';
+        fb.textContent = '❌ نه دقیقاً. ' + item.why;
+      }
+      answered++;
+      if(answered === questions.length) showScore();
+    };
+    opts.appendChild(btn);
+  });
+
+  const fb = document.createElement('div');
+  fb.className = 'feedback';
+  box.appendChild(opts);
+  box.appendChild(fb);
+  quizEl.appendChild(box);
+});
+
+function showScore(){
+  let msg, emoji;
+  if(correct === questions.length){ emoji='🏆'; msg='فوق‌العاده! همه را درست جواب دادی — تو یک متخصص تاریخ رسانه‌ای!'; }
+  else if(correct >= questions.length/2){ emoji='👏'; msg='خوب بود! فقط کمی دیگر مرور کن تا کامل یاد بگیری.'; }
+  else { emoji='🌱'; msg='اشکالی ندارد! یک بار دیگر سفر را از بالا ببین و برگرد.'; }
+  scoreEl.innerHTML = `${emoji} امتیاز تو: <span style="color:#ffd93d">${toFa(correct)}</span> از ${toFa(questions.length)}<br><span style="font-weight:400;color:#b9b3e0;font-size:.92rem">${msg}</span>`;
+  scoreEl.classList.add('show');
+  scoreEl.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function toFa(n){ return String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]); }
+
+toTop.onclick = () => scrollTo({top:0, behavior:'smooth'});
+</script>
+</body>
+</html>
